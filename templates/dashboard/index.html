@@ -1,0 +1,77 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div id="dashboard" class="bg-gray-100 min-h-screen">
+  {% include "layouts/_header.html" %}
+
+  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-gray-800">Welcome!</h2>
+      <p class="text-gray-600 mt-2">Get started by uploading your resume or generating a new cover letter.</p>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-lg font-semibold text-gray-800">Upload Resume</h3>
+        <p class="text-gray-600 mt-2">Upload your resume to start generating custom cover letters.</p>
+        <button hx-get="{% url 'upload_resume' %}" hx-target="#resume-form" hx-trigger="click" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+          Upload Resume
+        </button>
+      </div>
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-lg font-semibold text-gray-800">Generate Cover Letter</h3>
+        <p class="text-gray-600 mt-2">Use your primary resume to create a tailored cover letter.</p>
+        <a href="{% url 'generate_cover_letter' %}" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+          Generate Cover Letter
+        </a>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h3 class="text-xl font-bold text-gray-800">Your Resumes</h3>
+      <div class="mt-4 bg-white p-6 shadow rounded-lg">
+        {% if resumes %}
+          <ul class="space-y-4">
+            {% for resume in resumes %}
+              <li class="flex justify-between items-center">
+                <div>
+                  <p class="font-medium text-gray-800">
+                    <a href="{{ resume.file.url }}" target="_blank"
+                      class="font-medium text-indigo-600 hover:underline">
+                      {{ resume.name }}
+                    </a>
+                    {% if resume.is_primary %}
+                      <span class="ml-2 text-xs font-semibold text-green-600">(Primary)</span>
+                    {% endif %}
+                  </p>
+                  <p class="text-sm text-gray-600">Uploaded on {{ resume.created_at|date:"M d, Y" }}</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  {% if not resume.is_primary %}
+                    <button hx-post="{% url 'set_primary_resume' resume.id %}"
+                      hx-swap="outerHTML"
+                      hx-target="this"
+                      class="inline-block px-3 py-1 text-sm font-semibold text-green-600 bg-green-100 rounded-md hover:bg-green-200">
+                      Set as Primary
+                    </button>
+                  {% endif %}
+                  <a href="{% url 'generate_cover_letter' resume.id %}"
+                    class="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-md hover:bg-blue-200">
+                    Use for Cover Letter
+                  </a>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-gray-600">No resumes uploaded yet. Start by uploading your first resume!</p>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+  <div id="resume-form"></div>
+</div>
+{% endblock content %}

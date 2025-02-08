@@ -1,0 +1,17 @@
+{% load static tailwind_cli %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% tailwind_css %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cover Letter Generator" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{% block title %} {% endblock %}</title>
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  </head>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <main>{% block content %} {% endblock %}</main>
+  </body>
+</html>

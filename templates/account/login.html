@@ -1,0 +1,35 @@
+{% extends "_base.html" %}
+{% load socialaccount static %}
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-lg dark:bg-gray-800">
+    <div class="p-8 space-y-6">
+      <h1 class="text-2xl font-extrabold text-center text-gray-900 dark:text-white">
+        Sign in to your account
+      </h1>
+      <p class="text-sm text-center text-gray-600 dark:text-gray-300">
+        Sign in to create tailored, job-specific cover letters.
+      </p>
+      <div class="mt-4 flex justify-center">
+        <a href="{% provider_login_url 'google' process='login' %}" class="w-full">
+          <button class="flex w-full items-center justify-center gap-3 px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 0 48 48">
+              <g fill="none" fill-rule="evenodd">
+                <path fill="#FBBC05" d="M9.827 24c0-1.524.253-2.986.705-4.356L2.623 13.604A23.9 23.9 0 0 0 .214 24c0 3.737.868 7.261 2.407 10.388l7.905-6.051c-.448-1.364-.699-2.821-.699-4.337z"/>
+                <path fill="#EA4335" d="M23.714 10.133c3.311 0 6.302 1.173 8.652 3.093L39.202 6.4C35.036 2.773 29.695.533 23.714.533 14.427.533 6.445 5.844 2.623 13.604l7.909 6.04c1.823-5.532 7.017-9.511 13.182-9.511z"/>
+                <path fill="#34A853" d="M23.714 37.867c-6.165 0-11.36-3.978-13.182-9.51l-7.91 6.04c3.822 7.76 11.803 13.072 21.092 13.072 5.732 0 11.204-2.035 15.311-5.848l-7.508-5.804c-2.118 1.334-4.785 2.052-7.804 2.052z"/>
+                <path fill="#4285F4" d="M46.145 24c0-1.387-.213-2.88-.534-4.267H23.714v9.067H36.318c-.63 3.092-2.346 5.469-4.801 7.016l7.508 5.804c4.314-4.004 7.12-9.968 7.12-16.62z"/>
+              </g>
+            </svg>
+            <span>Sign in with Google</span>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

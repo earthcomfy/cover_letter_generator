@@ -1,0 +1,82 @@
+{% extends "_base.html" %}
+
+{% block title %}{{ job.job_title }} - Cover Letters{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 min-h-screen">
+  {% include "layouts/_header.html" %}
+
+  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+      <div class="px-4 py-5 sm:px-6">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ job.job_title }}</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">Created on {{ job.created_at|date:"M d, Y" }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+        <div class="prose max-w-none text-gray-500">
+          {{ job.job_description|linebreaks }}
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Cover Letter Versions</h3>
+      </div>
+      <div class="border-t border-gray-200">
+        <ul class="divide-y divide-gray-200">
+          {% for cover_letter in job.cover_letters.all %}
+            <li class="px-4 py-4 sm:px-6 hover:bg-gray-50">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <a href="{% url 'cover_letter_detail' cover_letter.pk %}"
+                     class="text-indigo-600 hover:text-indigo-900">
+                    Version {{ cover_letter.revision }}
+                  </a>
+                  {% if cover_letter.is_favorite %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                      Favorite
+                    </span>
+                  {% endif %}
+                </div>
+                <div class="flex items-center space-x-4">
+                  <span class="text-sm text-gray-500">{{ cover_letter.created_at|date:"M d, Y" }}</span>
+                  <button
+                    hx-post="{% url 'toggle_favorite_cover_letter' cover_letter.pk %}"
+                    hx-swap="outerHTML"
+                    class="flex items-center p-2 hover:bg-gray-50 rounded-full {% if cover_letter.is_favorite %}text-red-500{% else %}text-gray-400{% endif %}"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-6 w-6"
+                         fill="{% if cover_letter.is_favorite %}currentColor{% else %}none{% endif %}"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor"
+                         stroke-width="2">
+                      <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              {% if cover_letter.prompt %}
+                <p class="mt-2 text-sm text-gray-500">
+                  Refinement: {{ cover_letter.prompt|truncatewords:20 }}
+                </p>
+              {% endif %}
+            </li>
+          {% empty %}
+            <li class="px-4 py-8 text-center text-gray-500">
+              No cover letters generated yet.
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock content %}

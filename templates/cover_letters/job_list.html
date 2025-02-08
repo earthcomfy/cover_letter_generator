@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+
+{% block title %}My Jobs{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 min-h-screen">
+  {% include "layouts/_header.html" %}
+
+  <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold text-gray-800">Your Jobs</h3>
+      <a href="{% url 'generate_cover_letter' %}"
+         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+        New Cover Letter
+      </a>
+    </div>
+
+    <div class="space-y-6">
+      {% for job in jobs %}
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-5 sm:px-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                  <a href="{% url 'job_detail' job.pk %}" class="hover:text-indigo-600">
+                    {{ job.job_title }}
+                  </a>
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                  Created on {{ job.created_at|date:"M d, Y" }}
+                </p>
+              </div>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                {{ job.cover_letters.count }} versions
+              </span>
+            </div>
+          </div>
+          <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="text-sm text-gray-500 line-clamp-3">
+              {{ job.job_description|truncatewords:50 }}
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="bg-white p-6 text-center shadow rounded-lg">
+          <p class="text-gray-600">You haven't created any cover letters yet.</p>
+          <a href="{% url 'generate_cover_letter' %}" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+            Generate Your First Cover Letter
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+</div>
+{% endblock content %}

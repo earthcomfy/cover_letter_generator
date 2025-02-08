@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% block title %}Generate Cover Letter{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 min-h-screen">
+    {% include "layouts/_header.html" %}
+    <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <form method="post"
+              x-data="{ loading: false }"
+              @submit="loading = true"
+              class="relative">
+            {% csrf_token %}
+
+            <div x-show="loading"
+                 class="absolute inset-0 bg-white/75 flex items-center justify-center rounded-lg z-10">
+                <div class="text-center">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-3"></div>
+                    <p class="text-gray-600">Generating your cover letter...</p>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="job_title" class="block text-gray-700 font-medium">Job Title</label>
+                {{ form.job_title }}
+            </div>
+            <div class="mb-4">
+                <label for="job_description" class="block text-gray-700 font-medium">Job Description</label>
+                {{ form.job_description }}
+            </div>
+            <div class="flex justify-end">
+                <button type="submit"
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                        x-bind:disabled="loading">
+                    <span x-show="!loading">Generate Cover Letter</span>
+                    <span x-show="loading">Generating...</span>
+                </button>
+            </div>
+        </form>
+    </main>
+</div>
+{% endblock content %}
