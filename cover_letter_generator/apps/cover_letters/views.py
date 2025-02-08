@@ -154,7 +154,7 @@ class RefineCoverLetterView(LoginRequiredMixin, View):
                 )
 
             new_content = cover_letter_service.refine_cover_letter(
-                original_letter=original_letter, refinement_prompt=refinement_prompt
+                original_letter=original_letter, prompt=refinement_prompt
             )
             new_revision = CoverLetter.objects.create(
                 user=self.request.user,
