@@ -35,7 +35,12 @@ class Resume(BaseModel):
     extracted_content = models.TextField(
         help_text="Indicates extracted content from the resume. This is used for generating cover letters.",
     )
-    is_primary = models.BooleanField(default=False, help_text="Indicates if this is the primary resume.")
+    is_primary = models.BooleanField(
+        default=False, help_text="Indicates if this is the primary resume."
+    )
+
+    class Meta(BaseModel.Meta):
+        db_table = "resume"
 
     def __str__(self):
         return f"{self.name} - {self.user}"
