@@ -1,6 +1,8 @@
 # AI Cover Letter Generator
 A modern web application that helps users generate and refine personalized cover letters using AI. Built with Django and powered by OpenAI's GPT models.
 
+![diagram](https://github.com/user-attachments/assets/23f54018-11c4-43ce-b337-9ec2a3280603)
+
 ## Table of Contents
 - [Features](#features)
 - [Demo](#demo)
