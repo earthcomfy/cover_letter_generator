@@ -18,14 +18,11 @@ A modern web application that helps users generate and refine personalized cover
 - Mark cover letters as favorites to influence future generations
 
 ## Demo
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/395f4af3-a296-4576-89dc-5643d75df5d2" width="250">Home</td>
-    <td><img src="https://github.com/user-attachments/assets/70c1889e-449f-45a3-8360-8d81e5945e3f" width="250">Jobs</td>
-    <td><img src="https://github.com/user-attachments/assets/0b4e0c6b-7d76-438a-aebe-ffb5b4289013" width="250">Cover Letters</td>
-    <td><img src="https://github.com/user-attachments/assets/ee9ebb2f-b144-490f-b09f-51b124b3ce69" width="250">Refine Cover Letters</td>
-  </tr>
-</table>
+<p>
+  <img src="https://github.com/user-attachments/assets/395f4af3-a296-4576-89dc-5643d75df5d2" width="30%">
+  <img src="https://github.com/user-attachments/assets/70c1889e-449f-45a3-8360-8d81e5945e3f" width="30%">
+  <img src="https://github.com/user-attachments/assets/0b4e0c6b-7d76-438a-aebe-ffb5b4289013" width="30%">
+</p>
 
 ## Technology Stack
 - Django 5.1
